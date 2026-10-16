@@ -1,0 +1,18 @@
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.cache
+
+# Build output
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+
+# Local secrets
+secrets.json
+appsettings.*.local.json
+
+# Test results
+TestResults/
