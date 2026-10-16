@@ -31,12 +31,26 @@ jobs:
             exit 1
           }
 
-          find . -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" | grep -qi "raceday" || {
+          find . \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) | grep -qi "raceday" || {
             echo "ERROR: RaceDay ERD image not found"
             exit 1
           }
 
           echo "All required files were found!"
 
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore RaceDay.API/Raceday.api.sln
+
+      - name: Build solution
+        run: dotnet build RaceDay.API/Raceday.api.sln --configuration Release --no-restore
+
+      - name: Run automated tests
+        run: dotnet test RaceDay.API/Raceday.api.sln --configuration Release --no-build
+
       - name: Validation successful
-        run: echo "RaceDay validation passed successfully!"
+        run: echo "RaceDay validation, build, and tests passed successfully!"
